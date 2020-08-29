@@ -3,6 +3,7 @@ import { Script } from "@ckb-lumos/base";
 import { common, secp256k1Blake160 } from "@ckb-lumos/common-scripts";
 import { TransactionSkeleton } from "@ckb-lumos/helpers";
 import { Cell } from "ckb-js-toolkit";
+import { CreateNFT } from '../lib/nft'
 
 interface CkbTransferParams {
   sender: string;
@@ -36,7 +37,8 @@ export const buildTransferCkbTx = async (params: CkbTransferParams) => {
 
   let txSkeleton = TransactionSkeleton({
     // @ts-ignore
-    cellProvider: indexer,
+    cellProvider: indexer
+    
   });
 
   txSkeleton = await secp256k1Blake160.transfer(
@@ -53,3 +55,28 @@ export const buildTransferCkbTx = async (params: CkbTransferParams) => {
   txSkeleton = secp256k1Blake160.prepareSigningEntries(txSkeleton);
   return txSkeleton;
 };
+
+export const buildCreateNFTCkbTx = async (params: CreateNFT) => {
+  const { sender, nftName, copies, symbol, fileAddress, txFee } = params;
+
+  let txSkeleton = TransactionSkeleton({
+    // @ts-ignore
+    cellProvider: indexer
+    
+  });
+
+  txSkeleton = await secp256k1Blake160.transfer(
+    txSkeleton,
+    sender,
+    sender,
+    BigInt(0)
+  );
+  txSkeleton = await secp256k1Blake160.payFee(
+    txSkeleton,
+    sender,
+    BigInt(txFee)
+  );
+  txSkeleton = secp256k1Blake160.prepareSigningEntries(txSkeleton);
+  return txSkeleton;
+};
+
