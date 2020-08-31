@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
 
-import { BalanceContext, BalanceActions } from "../stores/BalanceStore";
-import { WalletContext } from "../stores/WalletStore";
+import { BalanceContext, BalanceActions } from "../store/BalanceStore";
+import { WalletContext } from "../store/WalletStore";
 import { dappService } from "../services/DappService";
 import React from "react";
 import { useInterval } from "../hooks/useInterval";
@@ -9,7 +9,7 @@ import {
   TxTrackerContext,
   getPendingTx,
   TxTrackerActions,
-} from "../stores/TxTrackerStore";
+} from "../store/TxTrackerStore";
 
 /* The DataManager fetches new data when it's needed. This takes the burden off the other components to handle data fetches, and placing that data in appropriate stores. Other components simply tell the fetcher the relevant update, and subscribe to the incoming state via contexts :) */
 export const DataManager = ({ children }) => {
@@ -49,6 +49,8 @@ export const DataManager = ({ children }) => {
   }, [activeAccount, balanceDispatch]);
 
   // Fetch tracked transaction status + ckb balance on block update
+
+  /*
   useInterval(async () => {
     const latestBlock = await dappService.getLatestBlock();
 
@@ -75,6 +77,8 @@ export const DataManager = ({ children }) => {
       }
     }
   }, 1000);
+  */
 
   return <React.Fragment>{children}</React.Fragment>;
 };
+

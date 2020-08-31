@@ -6,14 +6,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import AddressView from "./AddressView";
 import { walletService } from "../services/WalletService";
-import { WalletActions, WalletContext } from "../stores/WalletStore";
+import { WalletActions, WalletContext } from "../store/WalletStore";
 import {
   Modals,
   ModalActions,
   ModalContext,
   WalletModalPanels,
-} from "../stores/ModalStore";
-import { BalanceContext } from "../stores/BalanceStore";
+} from "../store/ModalStore";
+import { BalanceContext } from "../store/BalanceStore";
 import CkbValue from "./common/CkbValue";
 import { WalletConnectCard } from "./WalletConnectCard";
 
@@ -23,7 +23,7 @@ const ModalWrapper = styled.div`
 `;
 
 const HeaderRow = styled(Row)`
-  padding: 10px 0px;
+  padding: 10px;
   padding-top: 20px;
   border-bottom: 1px solid black;
 `;

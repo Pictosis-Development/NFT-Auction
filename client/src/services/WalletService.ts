@@ -30,18 +30,18 @@ class WalletService {
   }
 
   setToken(token: string) {
-    this.token = token;
+    localStorage.setItem('token', token);
   }
 
   async getAccounts(): Promise<Account[]> {
-    if (!this.token) {
+    if (!localStorage.getItem('token')) {
       throw new Error("Wallet permission token not obtained");
     }
     try {
       let res = await fetch(this.walletUri, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${this.token}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
         body: JSON.stringify({
           id: 3,
@@ -72,7 +72,7 @@ class WalletService {
     let res = await fetch(this.walletUri, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${this.token}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
       body: JSON.stringify({
         id: 4,

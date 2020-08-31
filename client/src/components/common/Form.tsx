@@ -1,34 +1,47 @@
-import styled, { css } from "styled-components";
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
-export const sharedStyles = css`
-  height: 40px;
-  border-radius: 5px;
-  border: 1px solid #888;
-  margin: 10px 0 20px 0;
-  padding: 20px;
-  box-sizing: border-box;
-`;
+import Button from '../common/Button';
 
-export const FormWrapper = styled.div`
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  padding: 0 20px;
-`;
-export const Form = styled.form`
-  width: 100%;
-  padding: 40px;
-  border-radius: 10px;
-  box-sizing: border-box;
-  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
-`;
+const FormWrapper = styled.form`
+    label, input {
+        display: block;
+        color: black;
+    }
+    input {
+        width: 100%;
+        margin-bottom: 2em;
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid #C8C8C8;
+        padding: 1em 0;
+        outline: none;
+    }
+    button {
+        width: 30%;
+    }
+`
 
-export const FormTitle = styled.h2``;
-export const FormInput = styled.input`
-  width: 100%;
-  ${sharedStyles};
-`;
+function Form() {
 
-export const FormError = styled.div`
-  color: red;
-`;
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [royalties, setRoyalties] = useState('');
+
+    return (
+        <FormWrapper>
+            <label>Name</label>
+            <input onChange={(event) => setName(event.target.value)} value={name} type="text" placeholder="E.g. Pictosis + Nervos"/>
+
+            <label>Description</label>
+            <input onChange={(event) => setDescription(event.target.value)} value={description} type="text" placeholder="E.g. The first ever NFT minted on Nervos"/>
+
+            <label>Royalties</label>
+            <input onChange={(event) => setRoyalties(event.target.value)} value={royalties} type="text" placeholder="E.g. Pictosis + Nervos"/>
+
+            <Button>CREATE</Button>
+        </FormWrapper>
+    )
+}
+
+export default Form;

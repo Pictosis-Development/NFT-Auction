@@ -1,8 +1,9 @@
 {
-  "name": "client",
+  "name": "pictosis-ui",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "typedi": "^0.8.0",
     "@ckb-lumos/helpers": "^0.6.0",
     "@ckb-lumos/types": "^0.3.0",
     "@emeraldpay/hashicon-react": "^0.5.1",

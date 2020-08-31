@@ -1,7 +1,7 @@
 import { HexString, Hash, Script } from "@ckb-lumos/base";
 import { TransactionSkeletonType } from "@ckb-lumos/helpers";
 import { Api } from "./Api";
-import { TxMap } from "../stores/TxTrackerStore";
+import { TxMap } from "../store/TxTrackerStore";
 
 export interface CkbTransferParams {
   sender: string;
@@ -30,11 +30,11 @@ class DappService {
     this.dappServerUri = dappServerUri;
   }
 
-  async getLatestBlock(): Promise<number> {
+ /* async getLatestBlock(): Promise<number> {
     const response = await Api.get(this.dappServerUri, "/latest-block");
     return Number(response.payload.blockNumber);
   }
-
+*/
   async fetchTransactionStatuses(txHashes: Hash[]) {
     console.log("fetchTransactionStatuses", txHashes);
     const response = await Api.post(this.dappServerUri, "/fetch-tx-status", {

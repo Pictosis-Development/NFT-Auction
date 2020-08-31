@@ -1,60 +1,94 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import WalletInfo from './WalletPanel';
+import Button from '../components/common/Button';
+import ToggleCircle from './common/ToggleCircle';
+import ProfileInfo from './ProfileInfo';
 
-const HeaderFrame = styled.div`
+const HeaderWrapper = styled.header`
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
+    height: 60px;
     width: 100%;
-    border-bottom: 1px solid black;
-`;
+    background: #FFF;
+    padding: 0 2em;
+    text-transform: uppercase;
+    z-index: 1000;
+`
 
-const HeaderElement = styled.div`
-    margin: 19px 30px;
-    display: flex;
-    min-width: 0;
+const LeftHeader = styled.div`
+`
+
+const RightHeader = styled.div`
     display: flex;
     align-items: center;
-`;
-
-const Title = styled.a`
-    display: flex;
-    text-decoration: none;
-    align-items: center;
-    cursor: pointer;
-    height: 32px;
-    img {
-        font-size: 15px;
-        font-weight: 500;
-        height: 32px;
-        width: 32px;
+    ul {
+        display: flexbox;
+        margin-right: 1em;
+        li {
+            font-size: 0.8em;
+            list-style: none;
+            color: black;
+            margin: 0;
+            margin-right: 2em;
+            transition: all 0.2s;
+            &:hover {
+                color: #FF00FF;
+            }
+        }
+        a {
+            color: inherit;
+            text-decoration: none;
+            font-weight: bold;
+        }
     }
-`;
+`
 
-const AppName = styled.div`
-    font-style: normal;
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 18px;
-    letter-spacing: 1px;
-    margin-left: 12px;
-`;
+const Title= styled.a`
+    img {
+        width: 50%;
+    }
+`
 
-const Header = () => {
+function Header() {
+
+    const [login, setLogin] = useState(localStorage.getItem('token'));
+
+    const  notLoginMenuStyles = {
+        background: 'black',
+        
+    }
+    
     return (
-        <HeaderFrame>
-            <HeaderElement>
+        <HeaderWrapper
+            style={!login ? notLoginMenuStyles : {}}
+        >
+            <LeftHeader>
                 <Title href="/">
-                    <img alt="nervos" src="nervos-logo.png" />
-                    <AppName>Lumos Starter Pack</AppName>
+                    <img style={!login ? {filter: 'invert(1)'} : {}} className="logo" alt="nervos" src="../pictosis.svg"/>
                 </Title>
-            </HeaderElement>
-            <HeaderElement>
-                <WalletInfo />
-            </HeaderElement>
-        </HeaderFrame>
-    );
-};
+            </LeftHeader>
+
+            <RightHeader
+                style={!login ? {display: 'none'} : {}}
+            >
+                <ul>
+                    <li><a href="/marketplace">Marketplace</a></li>
+                    <li><a href="/dashboard">My nfts</a></li>
+                </ul>
+                <Button href="/create">Create Nfts</Button>
+                <ToggleCircle></ToggleCircle>
+                <ToggleCircle
+                    image="../profile.svg"
+                >
+                    <ProfileInfo 
+                        image="../profile.svg"
+                    />
+                </ToggleCircle>
+            </RightHeader>
+
+        </HeaderWrapper>
+    )
+}
 
 export default Header;
